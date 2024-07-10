@@ -8,7 +8,6 @@ from pages.sandbox_page import SandboxPage
 def browser():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
-    driver.get("https://www.thefreerangetester.github.io/sandbox-automation-testing/")
     yield driver
     driver.quit()
 

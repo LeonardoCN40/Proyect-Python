@@ -22,7 +22,7 @@ def read_search_terms():
 
 @pytest.fixture(params=read_search_terms())
 def termino_de_busqueda(request):
-    return request.param 
+    return request.param
 
 def test_google_busqueda(browser, termino_de_busqueda):
     search_box = browser.find_element("name","q")
