@@ -26,4 +26,4 @@ jobs:
         - name: Commit and Push changes
           uses: stefanzweifel/git-auto-commit-action@v7
           with:
-            commit_message: Update Test_sandbox
+            commit_message: Update Tests
