@@ -1,0 +1,29 @@
+name: main
+
+on: 
+  push:
+     branches: [main]
+
+jobs:
+   build:
+      runs-on: ubuntu-latest 
+
+      permissions:
+        contents: write
+
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v5
+
+        - name: Setup Python
+          uses: actions/setup-python@v6
+          with:
+             python-version: "3.12.3"
+
+        - name: Run script
+          run: python ./tests/test_sandbox.py
+
+        - name: Commit and Push changes
+          uses: stefanzweifel/git-auto-commit-action@v7
+          with:
+            commit_message: Update Tests
