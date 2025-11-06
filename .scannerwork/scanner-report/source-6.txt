@@ -17,9 +17,8 @@ def test_boton_id_dinamico_muestra_texto_al_hacer_click(sandbox_page):
     assert (
         texto_esperado in elemento_texto_oculto.text
     ), "el texto esperado no coincide"
-    
 
-@pytest.mark.sandbox
+
 def test_boton_id_dinamico_cambiar_color_al_hacer_hover(sandbox_page):
     sandbox_page.navigate_sandbox()
     boton_id_dinamico = sandbox_page.wait_for_element(sandbox_page.DYNAMIC_ID_BUTTON)

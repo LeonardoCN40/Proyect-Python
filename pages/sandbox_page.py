@@ -4,9 +4,10 @@ from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class SandboxPage(BasePage):
     ENVIAR_BUTTON = (By.XPATH, "//button[contains(text(), 'Enviar')]")
-    DYNAMIC_TO_BUTTON = (By.XPATH,"//button[contains(text(), 'Hacé click para generar un ID dinámico y mostrar el elemento oculto')]",
+    DYNAMIC_ID_BUTTON = (By.XPATH,"//button[contains(text(), 'Hacé click para generar un ID dinámico y mostrar el elemento oculto')]",
     )
 
     HIDDEN_TEXT_LABEL = (
@@ -28,5 +29,8 @@ class SandboxPage(BasePage):
       # self.click(self.ENVIAR_BUTTON)
                             
     def click_boton_id_dinamico(self):
-        self.click(self.DYNAMIC_TO_BUTTON)
+        self.click(self.DYNAMIC_ID_BUTTON)
+
+    def hover_over_dynamic_id_button(self):
+        self.hover_over_element(self.DYNAMIC_ID_BUTTON)
   
