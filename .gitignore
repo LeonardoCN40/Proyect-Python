@@ -1,0 +1,23 @@
+# Bytecode y caché de Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Entorno virtual
+TestEnv/
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# webdriver-manager cache
+.wdm/
+
+# IDEs
+.vscode/
+.idea/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
