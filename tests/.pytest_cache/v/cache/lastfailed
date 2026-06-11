@@ -1,0 +1,4 @@
+{
+  "test_fixtures.py::test_google_busqueda": true,
+  "test_fixtures.py::test_google_busqueda[Leon]": true
+}

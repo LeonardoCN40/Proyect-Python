@@ -9,7 +9,7 @@ class BasePage:
     def navigate_to(self, url):
         self.driver.get(url)
     
-    def wait_for_element(self, locator, timeout=350):
+    def wait_for_element(self, locator, timeout=10):
         return WebDriverWait(self.driver, timeout).until(
             EC.visibility_of_element_located(locator)
         )

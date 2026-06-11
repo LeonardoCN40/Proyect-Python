@@ -1,0 +1,16 @@
+[
+  "test_fixtures.py::test_google_busqueda",
+  "test_fixtures.py::test_google_busqueda[Buho]",
+  "test_fixtures.py::test_google_busqueda[Cypress]",
+  "test_fixtures.py::test_google_busqueda[Leon]",
+  "test_fixtures.py::test_google_busqueda[Pinguino]",
+  "test_fixtures.py::test_google_busqueda[Playwriting]",
+  "test_fixtures.py::test_google_busqueda[Selenium]",
+  "test_fixtures.py::test_google_busqueda[Watir]",
+  "test_fixtures.py::test_google_busqueda[playwright]",
+  "test_fixtures.py::test_google_busqueda[termino_de_busqueda0]",
+  "test_pruebainicial.py::test_prueba",
+  "test_sandbox.py::test_boton_id_dinamico_cambiar_color_al_hacer_hover",
+  "test_sandbox.py::test_boton_id_dinamico_muestra_texto_al_hacer_click",
+  "test_sandbox.py::test_click_en_enviar"
+]

@@ -1,34 +1,65 @@
 import csv
+import os
+
 import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+CSV_PATH = os.path.join(os.path.dirname(__file__), "TestData", "busquedaGoogle.csv")
+
+_DATOS_POR_DEFECTO = [
+    ("selenium python", "Selenium"),
+    ("automatización web", "automation"),
+    ("testing framework", "testing"),
+    ("page object model", "POM"),
+]
 
 
-@pytest.fixture
-def browser():
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
-    driver.get("https://www.google.com")
-    yield driver
-    driver.quit()
+def _leer_terminos_busqueda():
+    try:
+        with open(CSV_PATH, newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            terminos = [
+                (row["termino_busqueda"], row["resultado_esperado"])
+                for row in reader
+                if "termino_busqueda" in row and "resultado_esperado" in row
+            ]
+            return terminos if terminos else _DATOS_POR_DEFECTO
+    except FileNotFoundError:
+        return _DATOS_POR_DEFECTO
 
-def read_search_terms():
-    with open('TestData/busquedaGoogle.csv', newline='') as csvfile:
-        data = list(csv.reader(csvfile))
 
-    return [row[0] for row in data[1:]]
+@pytest.mark.parametrize("termino_busqueda,resultado_esperado", _leer_terminos_busqueda())
+@pytest.mark.parametrized
+def test_busqueda_google_parametrizada(browser, termino_busqueda, resultado_esperado):
+    """Test parametrizado de búsqueda en Google con datos CSV."""
+    browser.get("https://www.google.com")
 
-@pytest.fixture(params=read_search_terms())
-def termino_de_busqueda(request):
-    return request.param
+    try:
+        accept_cookies = WebDriverWait(browser, 3).until(
+            EC.element_to_be_clickable(
+                (By.XPATH, "//button[contains(text(), 'Aceptar') or contains(text(), 'Accept') or contains(text(), 'I agree')]")
+            )
+        )
+        accept_cookies.click()
+    except Exception:
+        pass  # Banner de cookies no apareció
 
-def test_google_busqueda(browser, termino_de_busqueda):
-    search_box = browser.find_element("name","q")
-    search_box.send_keys(termino_de_busqueda + Keys.RETURN)
+    search_box = WebDriverWait(browser, 10).until(
+        EC.presence_of_element_located((By.NAME, "q"))
+    )
+    search_box.clear()
+    search_box.send_keys(termino_busqueda)
+    search_box.submit()
 
-    results = browser.find_element("id","search")
-    assert (
-       len(results.find_elements("xpath",".//div")) > 0 
-    ), "hay resultado de busqueda"
+    WebDriverWait(browser, 15).until(
+        EC.presence_of_element_located((By.ID, "search"))
+    )
+
+    page_source = browser.page_source.lower()
+    assert resultado_esperado.lower() in page_source, (
+        f"El término '{resultado_esperado}' no se encontró en los resultados "
+        f"de búsqueda para '{termino_busqueda}'. "
+        f"Página verificada: {browser.current_url}"
+    )
