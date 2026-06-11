@@ -8,19 +8,11 @@ Ejecutar con: pytest -m sandbox
 """
 
 import pytest
-# Probando integracion continia con github actions -
+
+# Prueba CI con github actions, elimino descripcion paso a paso del codigo -
 
 @pytest.mark.sandbox
 def test_boton_id_dinamico_muestra_texto_al_hacer_click(sandbox_page):
-    """
-    Verifica que el texto oculto aparezca tras hacer click en el botón de ID dinámico.
-
-    Flujo:
-        1. Navegar al sandbox.
-        2. Hacer click en el botón de ID dinámico.
-        3. Esperar a que el párrafo oculto se vuelva visible (aparece ~3 segundos después).
-        4. Confirmar que el texto del párrafo coincide con el esperado.
-    """
     sandbox_page.navigate_sandbox()
     sandbox_page.click_boton_id_dinamico()
 
