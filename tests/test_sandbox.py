@@ -9,7 +9,7 @@ Ejecutar con: pytest -m sandbox
 
 import pytest
 
-# Prueba CI con git actions, se elimina description del flujo -
+# Prueba CI con git actions, se elimina description del codigo -
 
 @pytest.mark.sandbox
 def test_boton_id_dinamico_muestra_texto_al_hacer_click(sandbox_page):
